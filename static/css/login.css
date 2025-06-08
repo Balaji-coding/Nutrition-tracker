@@ -1,0 +1,126 @@
+
+  /* 🌈 Gradient Background */
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg,rgb(229, 179, 240),rgb(230, 121, 234),rgb(217, 55, 242),rgb(189, 16, 237));
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: white;
+}
+
+/* 🌟 Form Container */
+form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 12px;
+    width: 350px;
+    
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 📸 Avatar Image */
+.imgcontainer {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    width: 80px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+/* 🎨 Labels */
+label {
+    display: block;
+    font-size: 16px;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+/* ✏️ Input Fields */
+input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+}
+
+/* 👀 Placeholder Text Color */
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* 🌟 Focus Effect */
+input:focus {
+    border: 2px solid #ffcc70;
+}
+
+/* 🚀 Submit Button */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #ff8c00, #ff3b3b);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #ff3b3b, #ff8c00);
+}
+
+/* ❌ Cancel Button */
+/* .cancelbtn {
+    width: 100%;
+    background: #f44336;
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+} */
+
+/* .cancelbtn:hover {
+    background: #d32f2f;
+}
+ */
+/* 🔗 Forgot Password */
+.psw a {
+    color: #2825f5;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.psw a:hover {
+    text-decoration: underline;
+}
+
+/* 🛑 Error Message */
+h1 {
+    font-size: 40px;
+    margin: 5px 0;
+    color:rgb(12, 11, 11);
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 400px) {
+    form {
+        width: 90%;
+    }
+}
+

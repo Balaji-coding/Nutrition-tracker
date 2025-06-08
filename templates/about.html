@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - My Calorie Tracker{% endblock %}
+{% load static %}
+{% block content %}
+{{your}}
+<h2>
+    <h1>  About Our Nutrition Tracker</h1>
+    Welcome to Nutrition tracker web application, your personal companion for tracking nutrition and maintaining a healthy lifestyle. <br>
+    Our goal is to help users make informed dietary choices by providing an easy-to-use platform for monitoring daily food intake and hydration <br>
+    
+    Why Choose Our Nutrition Tracker?<br>
+    ✅ User-Friendly Interface – Simple and intuitive design for effortless <br>
+    ✅ Comprehensive Nutrition Tracking – Log your meals, calories, and macronutrients. <br>
+    ✅ Personalized Insights – Get valuable health insights based on your diet and hydration habits. <br>
+    ✅ Secure & Reliable – Your data is stored safely with our robust backend powered by Python Django and MySQL. <br>
+    
+    <h1>  Our Mission </h1>
+       We believe that good health starts with good habits. <br>
+       Our mission is to empower individuals by providing a tool that promotes mindful eating and proper hydration. <br>
+       Whether you're trying to lose weight, gain muscle, or maintain a balanced diet, Nutriton tracker web application is here to support your journey.
+    
+    <h1>  Get Started Today!</h1>
+    Join us in making nutrition tracking simple and effective. <br>
+    Start logging your meals and water intake to achieve your health goals effortlessly!
+    
+    </h2>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="command" id="">add_your_command</label>
+    <input type="text" name ="user_command" id ="" required placeholder="add command"><br><br>
+    <button type="submit">submit</button>
+</form>
+{% endblock %}

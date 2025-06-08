@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Nutrition Tracker</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href={%static "css/bootstrap.css"%} />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Dosis:400,600,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href={%static "css/style.css"%} rel="stylesheet" />
+  <!-- responsive style -->
+  <link href={%static "css/responsive.css"%} rel="stylesheet" />
+  <link rel="icon" type="image/x-icon" href={%static "images/icons8-nutrition-48.png"%}>
+
+</head>
+<header class="header_section">
+    <div class="container">
+      <div class="header_nav">
+        <a class="navbar-brand brand_desktop" href="index.html">
+          <img src={%static "images/logo.png"%} alt="" />
+        </a>
+        <div class="main_nav">
+          <div class="top_nav">
+            <ul class=" ">
+              <li class="">
+                <a class="" href="">
+                  <img src={%static "images/telephone.png"%} alt="" />
+                  <span> +91 9345065011</span>
+                </a>
+              </li>
+              <li class="">
+                <a class="" href="">
+                  <img src={%static "images/mail.png"%} alt="" />
+                  <span>22suca024@gmail.com</span>
+                </a>
+              </li>
+              <li class="">
+                <a class="" href="">
+                  <img src={% static "images/location.png" %} alt="" />
+                  <span>Madurai,Tamil nadu</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="bottom_nav">
+            <nav class="navbar navbar-expand-lg custom_nav-container">
+              <a class="navbar-brand brand_mobile" href="index.html">
+                <img src={%static "images/logo.png"%} alt="" />
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
+                  <ul class="navbar-nav  ">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="{% url "index" %}">home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url "find"%}">find</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href={%url "myaccount"%}> My account </a>
+                    </li>
+                    
+                    
+                    <li class="nav-item">
+                      <a class="nav-link" href={%url "water"%}> Water </a>
+                    </li>
+                    
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url "deep"%}">Deep_Analysis</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href={%url "about"%}> About </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url "login"%}">logout</a>
+                  </li>
+                  </ul>
+                  {% comment %} <form class="form-inline">
+                    <button class="btn ml-3 ml-lg-5 nav_search-btn" type="submit"></button>
+                  </form> {% endcomment %}
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>

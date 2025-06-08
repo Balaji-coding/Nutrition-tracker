@@ -1,0 +1,660 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home - My Calorie Tracker{% endblock %}
+{% load static %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  .container {
+    display: flex; /* Adjusts spacing */
+    flex-direction: column;
+    /* border:1px solid #000; */
+    gap: 50px;
+  }
+
+  .box {
+    /* border: 1px solid #000; */
+    display: flex;
+    justify-content: center;
+  }
+ 
+</style>
+
+<body>
+  
+  <h1>{{greeting}}  "{{name}}"</h1>
+
+  <div class="hero_area">
+    <!-- header section strats -->
+
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class=" slider_section position-relative">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-2 offset-md-2">
+            <div class="slider_heading">
+              
+            </div>
+          </div>
+          <div class="col-md-8 mx-auto">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">01</li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1">02</li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2">03</li>
+              </ol>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="box">
+                    <div class="detail-box">
+                      <h1>
+                        Find yours <br />
+                        
+                      </h1>
+                      <hr />
+                      <div class="btn-box">
+                        <a href="{% url "find" %}" class="btn-1">
+                          FIND <br>
+                          
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="box">
+                    <div class="detail-box">
+                      <h1>
+                        Myaccount <br />
+                        
+                      </h1>
+                      <hr />
+                      <div class="btn-box">
+                        <a href="{% url "deep" %}" class="btn-1">
+                          calories
+                          <br>
+                          
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="box">
+                    <div class="detail-box">
+                      <h1>
+                        Fuel <br />
+                        fix
+                      </h1>
+                      <hr />
+                      <div class="btn-box">
+                        <a href="{%url "about"%}" class="btn-1">
+                          Contact Us
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- end slider section -->
+  </div>
+
+    <!-- end slider section -->
+    <form action="" method="post">
+      {% csrf_token %}
+      <label for="query" id="food"> Enter food</label>
+      <input type="text" name ="query" id ="foods" required><br><br>
+      <p style="color: #ec0a0a;">{{query}}</p>
+      <label for="size">intake in grams</label>
+      <input type="number" name ="size" required>
+      <button type="submit">submit</button>
+    </form>
+    {{tot}}
+    <br><br>
+    <script>
+      window.onload=function(){
+          document.getElementById('foods').focus();
+      }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+            transition: 0.3s ease-in-out;
+        }
+    </style>
+
+    <h2>Current Food Nurition Table</h2>
+    
+    {% if query %}
+    <br>
+    <table>
+        <tr>
+            {% for i in allname %}
+            <th>{{i}}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+          {% for i in all %}
+          <td>{{i}}</td>
+          {% endfor %}
+        </tr>  
+    </table>
+    {%else %}
+    <p>No food Item </p>
+    {% endif %}
+    <br><br><br>
+    <!-- {% if food %}
+    <ul>
+        {% for i in food %}
+            <li>{{ i.item}} - {{ i.calories }} kcal</li> 
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>No food items found.</p>
+    {% endif %} -->
+
+    <h2>Today Nurition Table</h2>
+    <br>
+    {% if food%}
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Item</th>
+            <th>Calories</th>
+            <th>Fat (g)</th>
+            <th>Fat Saturated (g)</th>
+            <th>Protein (g)</th>
+            <th>Sodium (mg)</th>
+            <th>Potassium (mg)</th>
+            <th>Cholesterol (mg)</th>
+            <th>Carbohydrates (g)</th>
+            <th>Fiber (g)</th>
+            <th>Sugar (g)</th>
+        </tr>
+        {% for food in food %}
+        <tr>
+            <td>{{ food.date }}</td>
+            <td>{{ food.item }}</td>
+            <td>{{ food.calories }}</td>
+            <td>{{ food.fat }}</td>
+            <td>{{ food.fat_saturated }}</td>
+            <td>{{ food.protein }}</td>
+            <td>{{ food.sodium }}</td>
+            <td>{{ food.potassium }}</td>
+            <td>{{ food.cholesterol }}</td>
+            <td>{{ food.carbohydrates }}</td>
+            <td>{{ food.fiber }}</td>
+            <td>{{ food.sugar }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td>
+            <h1></h1>
+          </td>
+          <td>
+            <b>Total</b>
+          </td>
+          
+            {%for i in tot1 %}
+            <td>
+              {{i}} 
+            </td>
+            {%endfor%}
+            
+          
+        </tr>
+    </table>
+    {% else %}
+        <p>No food data found for this user.</p>
+    {% endif %}
+    
+
+{{tot1}}
+
+<div class="container">
+
+
+  <div class="box">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <canvas id="myChart" style="width:100%;max-width:800px "></canvas>
+  
+    <script>
+      var xValues = JSON.parse('{{ allnames1|escapejs }}');
+      var yValues = JSON.parse('{{ tot1|escapejs }}');
+      var barColors = [
+        "#FF5733",  // Bright Red-Orange
+        "#33FF57",  // Neon Green
+        "#3357FF",  // Electric Blue
+        "#FF33E3",  // Vibrant Pink
+        "#FFC300",  // Bright Yellow
+        "#00E5FF",  // Cyan Blue
+        "#FF5733",  // Fiery Orange
+        "#C70039",  // Deep Red
+        "#DAF7A6",  // Light Green
+        "#900C3F" 
+      ];
+    
+      new Chart("myChart", {
+        type: "pie",
+        data: {
+          labels: xValues,
+          datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+          }]
+        },
+        options: {
+          title: {
+            display: true,
+            text: "Today Nurition Chart"
+          }
+        }
+      });
+    </script>
+  </div>
+ 
+  {% comment %} <div class="box">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  
+      
+  <canvas id="myChart1" style="width:100%;max-width:600px" ></canvas>
+  
+  <script>
+  var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+  var yValues = [55, 49, 44, 24, 15];
+  var barColors = ["red", "green","blue","orange","brown"];
+  
+  new Chart("myChart1", {
+    type: "bar",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: "World Wine Production 2018"
+      }
+    }
+  });
+  </script>
+  </div> {% endcomment %}
+</div>
+
+
+<h1></h1>
+
+<div>{{gem}}</div>
+
+  <!-- about section -->
+
+  <section class="about_section layout_padding">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10 ml-auto pr-0">
+          <div class="about_container">
+            <div class="row">
+              <div class="col-lg-3 col-md-5">
+                <div class="detail-box">
+                  <div class="heading_container">
+                    <h2>
+                      Deep Analysis
+                    </h2>
+                  </div>
+                  <p>
+                    iusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris iusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquipnisi ut aliquipiusmod tempor incididunt ut labore et
+                  </p>
+                  <hr />
+                  <a href="">
+                    Read More
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end about section -->
+
+  <!-- class section -->
+
+  <section class="class_section ">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10 col-lg-8 mx-auto">
+          <div class="class_container">
+            <div class="row">
+              <div class="col-lg-9 col-md-10">
+                <div class="heading_container">
+                  <h2>
+                    features
+                  </h2>
+                  <p style="color: black; text-align: left;">
+                    ✅ User-Friendly Interface – Simple and intuitive design for effortless <br>
+                    ✅ Comprehensive Nutrition Tracking – Log your meals, calories, and <br>
+                    ✅ Personalized Insights – Get valuable health insights based on your diet and hydration habits. <br>
+                    ✅ Secure & Reliable – Your data is stored safely with our robust backend powered by Python Django and MySQL.
+
+                  </p>
+                </div>
+              </div>
+            </div>
+            {% comment %} <div class="class_box-container">
+              <div class="owl-carousel owl_carousel1">
+                <div class="item">
+                  <div class="box">
+                    <div class="img-box">
+                      <img src={% static "images/c1.jpg" %} alt="">
+                      <div class="detail-box">
+                        <button>
+                          <img src={%static "images/play-icon.png"%} alt="">
+                        </button>
+                        <h2>
+                          Boxing
+                        </h2>
+                      </div>
+                    </div>
+                    <div class="btn-box">
+                      <a href="">
+                        See More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="box">
+                    <div class="img-box">
+                      <img src={%static "images/c2.jpg"%} alt="">
+                      <div class="detail-box">
+                        <button>
+                          <img src={%static "images/play-icon.png"%} alt="">
+                        </button>
+                        <h2>
+                          Boxing
+                        </h2>
+                      </div>
+                    </div>
+                    <div class="btn-box">
+                      <a href="">
+                        See More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="box">
+                    <div class="img-box">
+                      <img src={%static "images/c1.jpg"%} alt="">
+                      <div class="detail-box">
+                        <button>
+                          <img src={%static "images/play-icon.png"%} alt="">
+                        </button>
+                        <h2>
+                          Boxing
+                        </h2>
+                      </div>
+                    </div>
+                    <div class="btn-box">
+                      <a href="">
+                        See More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="box">
+                    <div class="img-box">
+                      <img src={%static "images/c2.jpg"%} alt="">
+                      <div class="detail-box">
+                        <button>
+                          <img  src={%static "images/play-icon.png"%} alt="">
+                        </button>
+                        <h2>
+                          Boxing
+                        </h2>
+                      </div>
+                    </div>
+                    <div class="btn-box">
+                      <a href="">
+                        See More
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end class section -->
+
+
+  <!-- blog section -->
+
+  <section class="blog_section layout_padding">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10 ml-auto">
+          <div class="heading_container">
+            <h2>
+              Find calories
+            </h2>
+            <p style="color: black;text-align: left;">
+              It looks like you've found a nutrition module, <br>
+              but could you clarify whether it's from Django, <br>
+              a Python library, or something specific to your project? If it's related to your nutrition tracker web app, <br>
+              let me know which part you want a summary of—like calorie tracking, water intake, <br>
+              or database models.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 pl-0">
+          <div class="box b1">
+            <div class="img-box">
+              <img src={%static "images/b1.jpg"%} alt="">
+            </div>
+            <div class="row">
+              <div class="col-lg-8 col-md-10 ml-auto">
+                <div class="detail-box">
+                  <div class="img_date">
+                    <h6>
+                      21 <br>
+                      feb
+                    </h6>
+                  </div>
+                  <h3>
+                    My account
+                  </h3>
+                  <p>
+                  display user information and date wise nutrition table search feature</p>
+                  <a href={%url "myaccount"%}>
+                    Read More
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 pr-0">
+          <div class="box b2">
+            <div class="img-box">
+              <img src={%static "images/b2.jpg"%} alt="">
+            </div>
+            <div class="row">
+              <div class="col-lg-8 col-md-10 mr-auto">
+                <div class="detail-box">
+                  <div class="img_date">
+                    <h6>
+                      10 <br>
+                      mar
+                    </h6>
+                  </div>
+                  <h3>
+                    deep analysis
+                  </h3>
+                  <p>
+                  Deep analysis feature help  to find specific nutrition intake </p>
+                  <a href={% url "deep"%}>
+                    Read More
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end blog section -->
+
+  <!-- client section -->
+
+  <section class="client_section layout_padding-bottom">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-10 col-lg-8 mx-auto">
+          <div class="client_container">
+            <div class="heading_container">
+              <h2>
+                user commands
+              </h2>
+              <p>
+              </p>
+            </div>
+            <div class="client_box-container">
+              <div class="carousel-wrap ">
+                <div class="owl-carousel">
+                  <div class="item">
+                    <div class="box">
+                      <div class="img-box">
+                        <img src={%static "images/client1.png"%} alt="" />
+                      </div>
+                      <div class="detail-box">
+                        <h4>
+                          Jone Moe
+                        </h4>
+                        <p>
+                          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum </p>
+                        <img src={%static "images/quote.png"%} alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="box">
+                      <div class="img-box">
+                        <img src={%static "images/client2.png"%} alt="" />
+                      </div>
+                      <div class="detail-box">
+                        <h4>
+                          Lio Uji
+                        </h4>
+                        <p>
+                          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum </p>
+                        <img src={%static "images/quote.png"%} alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="box">
+                      <div class="img-box">
+                        <img src={%static "images/client1.png"%} alt="" />
+                      </div>
+                      <div class="detail-box">
+                        <h4>
+                          Jone Moe
+                        </h4>
+                        <p>
+                          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum </p>
+                        <img src={%static "images/quote.png"%} alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="box">
+                      <div class="img-box">
+                        <img src={%static "images/client2.png"%} alt="" />
+                      </div>
+                      <div class="detail-box">
+                        <h4>
+                          Lio Uji
+                        </h4>
+                        <p>
+                          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum </p>
+                        <img src={%static "images/quote.png"%} alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- <form action="{% url "user_commands" %}" >
+  <label for="command">add_your_command</label>
+  <input type="text" placeholder="add command" name="user_command">
+  <button type="submit">add</button>
+</form> -->
+  <script>
+    window.onload=function(){
+        document.getElementById('food').focus();
+    }
+  </script>
+  {% endblock %}

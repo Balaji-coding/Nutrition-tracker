@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - My Calorie Tracker{% endblock %}
+{% load static %}
+{% block content %}
+{{tot}}
+<h1>{{error}}</h1>
+<center>
+  <form action="" method="post">
+    {% csrf_token %}
+    <label for="user_need">What Nutrition You Analysis</label>
+    <input type="text" name="needed_nutrition" id="needed_nutrition" required>
+
+    <label for="days">How Many Days</label>
+    <input type="number" name="needed_dates" id="" required>
+    <button type="submit">submit</button>
+  </form>
+</center>
+
+<center>
+  <h3>{{needed_nutrition}}</h3>
+</center>
+
+<h2 style="text-align: center;">graph</h2>
+
+<div style="height:1000px; width: 1000px;">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <canvas id="myChart"></canvas>
+
+  <script>
+    // Get data from Django
+    let xLabels = JSON.parse('{{ needed_days|escapejs }}');  // Custom X-axis labels
+    let yValues = JSON.parse('{{ need|escapejs }}'); // Y-axis data
+  
+    // Create the graph using Chart.js
+    const ctx = document.getElementById("myChart").getContext("2d");
+    const myChart = new Chart(ctx, {
+      type: "line",  // Change to "bar" for bar graph
+      data: {
+        labels: xLabels,  // Use the custom X-axis labels
+        datasets: [{
+          label: JSON.parse('{{ needed_nutrition|escapejs }}'),
+          data: yValues,
+          borderColor: "red",
+          backgroundColor: "red",
+          borderWidth: 2,
+          pointRadius: 5
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { title: { display: true, text: "Categories" } },  // Custom title for x-axis
+          y: { title: { display: true, text: "Values" } }
+        }
+      }
+    });
+  </script>
+</div>
+
+<script>
+  window.onload = function () {
+    document.getElementById('needed_nutrition').focus();
+  }
+</script>
+
+<div class="box">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+  <center><canvas id="myChart1" style="width:100%;max-width:600px"></canvas></center>
+
+  <script>
+    var y = JSON.parse('{{ need|escapejs }}');
+    var x = JSON.parse('{{ needed_days|escapejs }}');
+    var barColors = ["red", "green", "blue", "orange", "brown"];
+
+    new Chart("myChart1", {
+      type: "bar",
+      data: {
+        labels: x,
+        datasets: [{
+          backgroundColor: barColors,
+          data: y
+        }]
+      },
+      options: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: "Nutrition intake"
+        }
+      }
+    });
+  </script>
+</div>
+{% endblock%}

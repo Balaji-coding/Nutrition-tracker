@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href={% static "css/myaccount.css"%}>
+<center>Today You Drink {{water}}ml Of Water</center>
+<center>Remaining {{remain}}ml Of water </center>
+<div>
+  <table>
+
+    <tr>
+      <td>
+        <h2>User name</h2>
+      </td>
+      <td>
+        <h3>{{user_info.name}}</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Email_id</h2>
+      </td>
+      <td>
+        <h3>{{user_info.email}}</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Weight</h2>
+      </td>
+      <td>
+        <h3>{{user_info.weight}} KG</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Height</h2>
+      </td>
+      <td>
+        <h3>{{user_info.height}} CM</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Age</h2>
+      </td>
+      <td>
+        <h3>{{user_info.age}}</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Gender</h2>
+      </td>
+      <td>
+        <h3>{{user_info.gender}}</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Activity_level</h2>
+      </td>
+      <td>
+        <h3>{{user_info.activity_level}}</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Goal</h2>
+      </td>
+      <td>
+        <h3>{{user_info.goal}}</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User BMR</h2>
+      </td>
+      <td>
+        <h3>{{user_info.bmr}}kcal/day</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User TDEE</h2>
+      </td>
+      <td>
+        <h3>{{user_info.tdee}}kcal/day</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Your_calorie_goal</h2>
+      </td>
+      <td>
+        <h3>{{user_info.your_calorie_goal}}kcal/day</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Protien_min</h2>
+      </td>
+      <td>
+        <h3>{{user_info.protien_min}}gm/day</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Protien_max</h2>
+      </td>
+      <td>
+        <h3>{{user_info.protien_max}}gm/day</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Lower_fat</h2>
+      </td>
+      <td>
+        <h3>{{user_info.lower_fat}}gm/day</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Upper_fat</h2>
+      </td>
+      <td>
+        <h3>{{user_info.upper_fat}}gm/day</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Pottasium</h2>
+      </td>
+      <td>
+        <h3>{{user_info.potassium}}mg</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Fiber</h2>
+      </td>
+      <td>
+        <h3>{{user_info.fiber}} gm/day</h3>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <h2>User Suger</h2>
+      </td>
+      <td>
+        <h3>{{user_info.suger}}gm/day</h3>
+      </td>
+    </tr>
+
+
+  </table>
+</div>
+<h1> If you want to update your information go to find page and update your information</h1>
+<center>
+  <form method="POST" action="">
+    {% csrf_token %}
+    <label for="date">Select a date:</label>
+    <input type="date" id="date" name="date">
+    <button type="submit">Submit</button>
+  </form>
+  
+</center>
+{{user_info.name}}
+<center><h1>{{date}}</h1></center>
+{{today}}
+{{email}}
+{{tot1}}
+
+{% if email %}
+  {%if date %}
+    <center><h1>{{date}} Report</h1></center>
+  {%elif today == date%}
+    <center><h1>Today Report</h1></center>
+  {%endif%}
+
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Item</th>
+            <th>Calories</th>
+            <th>Fat (g)</th>
+            <th>Fat Saturated (g)</th>
+            <th>Protein (g)</th>
+            <th>Sodium (mg)</th>
+            <th>Potassium (mg)</th>
+            <th>Cholesterol (mg)</th>
+            <th>Carbohydrates (g)</th>
+            <th>Fiber (g)</th>
+            <th>Sugar (g)</th>
+        </tr>
+        {% for food in food %}
+        <tr>
+            <td>{{ food.date }}</td>
+            <td>{{ food.item }}</td>
+            <td>{{ food.calories }}</td>
+            <td>{{ food.fat }}</td>
+            <td>{{ food.fat_saturated }}</td>
+            <td>{{ food.protein }}</td>
+            <td>{{ food.sodium }}</td>
+            <td>{{ food.potassium }}</td>
+            <td>{{ food.cholesterol }}</td>
+            <td>{{ food.carbohydrates }}</td>
+            <td>{{ food.fiber }}</td>
+            <td>{{ food.sugar }}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td>
+            <h1></h1>
+          </td>
+          <td>
+            <b>Total</b>
+          </td>
+          
+            {%for i in tot%}
+            <td>
+              {{i}} 
+            </td>
+            {%endfor%}
+            
+          
+        </tr>
+    </table>
+    {% else %}
+        <p>No food data found  'go and enter your food in home page'</p>
+    {% endif %}
+    <br><br>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<center><canvas id="myChart" style="width:100%;max-width:1000px"></canvas></center>
+<script>
+var xValues = JSON.parse('{{ allnames1|escapejs }}');
+var yValues = JSON.parse('{{ tot1|escapejs }}');
+var barColors = [
+        "#FF5733",  // Bright Red-Orange
+        "#33FF57",  // Neon Green
+        "#3357FF",  // Electric Blue
+        "#FF33E3",  // Vibrant Pink
+        "#FFC300",  // Bright Yellow
+        "#00E5FF",  // Cyan Blue
+        "#FF5733",  // Fiery Orange
+        "#C70039",  // Deep Red
+        "#DAF7A6",  // Light Green
+        "#900C3F"
+];
+
+new Chart("myChart", {
+  type: "pie",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "{{date}} Nutrition Table"
+    }
+  }
+});
+</script>
+<br><br><br>
+
+  {% comment %} <div class="box" style="padding-right: 100px;">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+   <center><canvas id="myChart1" style="width:100%;max-width:600px "></canvas></center>
+  <script>
+    var xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+    var yValues = [55, 49, 44, 24, 15];
+    var barColors = ["red", "green","blue","orange","brown"];
+
+    new Chart("myChart1", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        title: {
+          display: true,
+          text: "World Wine Production 2018"
+        }
+      }
+    });
+  </script>
+  </div> 
+  <script>
+    window.onload=function(){
+        document.getElementById('date').focus();
+    }
+  </script>{% endcomment %}
+
+{% endblock %}

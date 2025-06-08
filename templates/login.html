@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{%load static%}
+
+<link rel="stylesheet" href={% static "css\login.css"%}>
+<title>login page</title>
+</head>
+<body>
+
+
+<form method="post">
+    <center style="color: #2825f5; background-color: aliceblue; border-radius: 20px;">{{message}}</center>
+    <br>
+
+  {% csrf_token %}
+  <div class="imgcontainer">
+    <img src={%static "images/b1.jpg"%} alt="Avatar" class="avatar">
+  </div>
+  <h1 >login form</h1>
+
+  <div class="container">
+    <label for="uname"><b>Email</b></label>
+    <input type="text" placeholder="Enter your email" name="email" required id="name">
+    <h2 style="color:rgb(4, 4, 4); background-color: #fa0707; border-radius: 25px;">{{erorr2}}</h2>
+
+   <br>
+    <label for="password">Password:</label>
+    <h2 style="color:rgb(4, 4, 4); background-color: #fa0707; border-radius: 25px;">{{erorr}}</h2>
+    <div class="password-container" >
+        <input type="password" id="password" name="password" required>
+        <button type="button" class="toggle-btn" onclick="togglePassword()">👁️</button>
+    </div>
+
+    <br>
+        
+    <button type="submit">Login</button>
+    {% comment %}
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+  </div>
+
+   <div class="container">
+    <button type="button" class="cancelbtn">register</button>
+  </div><br><br> {% endcomment %}
+  <br><br>
+  <div class="container">  
+    <span class="psw"><a href="{%url "register"%}">Register now</a></span>
+  </div>
+</form>
+
+</body>
+
+<script>
+    window.onload=function(){
+        document.getElementById('name').focus();
+    }
+
+
+    
+        function togglePassword() {
+            const passwordInput = document.getElementById("password");
+            const toggleBtn = document.querySelector(".toggle-btn");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleBtn.textContent = "🙈";  // Change icon to "hide"
+            } else {
+                passwordInput.type = "password";
+                toggleBtn.textContent = "👁️";  // Change icon to "show"
+            }
+        }
+</script>
+</html>

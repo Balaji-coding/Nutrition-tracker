@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - My Calorie Tracker{% endblock %}
+{% load static %}
+{% block content %}
+
+
+<style>
+    
+body {
+    font-family: Arial, sans-serif;
+    background-color:rgb(107, 107, 215);
+    color:rgb(118, 71, 247);
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color:rgb(97, 42, 248);
+}
+
+.form-container, .result-container {
+    
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+label {
+
+    color: black;
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+input[type="number"], button {
+    
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+ input[type="radio"] {
+    transform: scale(1.5);  /* Increases the size by 1.5x */
+    margin-right: 5px; 
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+button {
+    background-color:rgb(168, 121, 221);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color:rgb(103, 29, 208);
+}
+
+.radio-group {
+    margin-bottom: 30px;
+}
+
+.radio-group label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.result-container a {
+    display: inline-block;
+    text-align: center;
+    color:rgb(178, 74, 226);
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.result-container a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .form-container, .result-container {
+        padding: 15px;
+        margin: 20px;
+    }
+
+    button {
+        padding: 12px;
+    }
+}
+
+</style>
+
+ 
+<body>
+    <div class="form-container">
+        <h1>Calculate Your Daily Calorie Needs</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" name="weight" required>
+
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" name="height" required>
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required><br><br>
+
+            <div class="radio-group">
+                <label>Gender:</label>
+                
+                <label>
+                    <input type="radio" name="gender" value="male" required> Male
+                </label>
+                <label>
+                    <input type="radio" name="gender" value="female" required> Female
+                </label>
+            </div><br><br>
+
+            <div class="radio-group">
+                <label>Activity Level:</label>
+                <label>
+                    <input type="radio" name="activity_level" value="sedentary" required> Sedentary
+                </label>
+                <label>
+                    <input type="radio" name="activity_level" value="lightly_active" required> Lightly Active
+                </label>
+                <label>
+                    <input type="radio" name="activity_level" value="moderately_active" required> Moderately Active
+                </label>
+                
+                <label>
+                    <input type="radio" name="activity_level" value="very_active" required> Very Active
+                </label>
+                <label>
+                    <input type="radio" name="activity_level" value="super_active" required> Super Active
+                </label>
+                
+            </div><br><br>
+
+            <div class="radio-group">
+                <label>Goal:</label>
+                <label>
+                    <input type="radio" name="goal" value="maintain" required> Maintain
+                </label>
+                <label>
+                    <input type="radio" name="goal" value="lose_weight" required> Lose Weight
+                </label>
+                <label>
+                    <input type="radio" name="goal" value="gain_weight" required> Gain Weight
+                </label>
+            </div>
+
+            <button type="submit">Calculate</button>
+        </form>
+    </div>
+
+
+    <div class="result-container">
+        <h1>Your Results</h1>
+        <center>
+            <h2>Your BMR: {{ bmr }} kcal/day</h2>
+            <h2>Your TDEE: {{ tdee }} kcal/day</h2>
+            <h2>Calories for your goal: {{ calories_for_goal }} kcal/day</h2>
+            <h2>Your Protien Need: {{protien_min}} To {{protien_max}}gm/day</h2>
+            <h2>Your fat limit : {{lower_fat}} To {{upper_fat}}gm/days</h2>
+            <h2>your potassium need : {{potassim}} mg</h2>
+            <h2>fiber need : {{fiber}}</h2>
+            <h2>suger need : {{suger}} gm/days</h2>
+            <a href={% url "index" %}>Go back</a>
+        </center>
+        <center><h1>sodium need for childrens</h1>
+            <h5>
+                1 to 3 years: 1,200 mg/day<br>
+                4 to 8 years: 1,500 mg/day<br>
+                9 to 13 years: 1,800 mg/day<br>
+                14 to 18 years: 2,300 mg/day</h5>
+            <h1>adults:</h1>
+            <h5>Less than 2,300 mg/day (about 1 teaspoon of salt).</h5>
+        </center>
+
+    </div>
+
+    {{protein}}{{protein}}
+    {% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+      background: #e0f7fa;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    .glass {
+      width: 60px;
+      height: 100px;
+      border: 2px solid #00796b;
+      border-radius: 10px;
+      margin: 10px;
+      display: inline-block;
+    }
+    .filled {
+      background: linear-gradient(to top, #4dd0e1 80%, transparent 20%);
+      animation: fillAnimation 0.5s ease-in-out;
+    }
+    @keyframes fillAnimation {
+      from {
+        background: transparent;
+      }
+      to {
+        background: linear-gradient(to top, #4dd0e1 80%, transparent 20%);
+      }
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Daily Water Tracker</h1>
+  <p>{{ entry.glasses_drank }} / 20 glasses</p>
+  <form method="POST">
+    {% csrf_token %}
+    <button class="btn" type="submit">Add a Glass of Water</button>
+  </form>
+  <div>
+    {% for i in range_list %}
+      <div class="glass filled"></div>
+    {% endfor %}
+    {% for i in remaining %}
+      <div class="glass"></div>
+    {% endfor %}
+  </div>
+  <center><h2>You Drink {{your}}ml Water Today</h2></center>
+  {% if need == 0%}
+  <center><h2>YOU SUCESSFULLY COMPLETED YOUR WATER NEED </h2></center>
+  {% else %}
+  <center><h2>Remaining Your  Water Need Today{{need}}ml</h2></center>
+  {% endif %}
+{% endblock%}
